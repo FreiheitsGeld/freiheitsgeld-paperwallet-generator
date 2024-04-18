@@ -1,6 +1,6 @@
 # Freiheitsgeld Paperwallet Generator
 
-Dieser [Paperwallet Generator](https://visitor-gateway-to-geo-caching.github.io/geo-caching-paperwallet-generator) wird beispielsweise genutzt von [Freiheitsgeld.de](https://freiheitsgeld.de).    
+Dieser [Paperwallet Generator](https://freiheitsgeld.github.io/freiheitsgeld-paperwallet-generator) wird beispielsweise genutzt von [Freiheitsgeld.de](https://freiheitsgeld.de).    
   
 Bitte prüft selbst den Code bevor Ihr diesen Generator für große Summen nutzt. 
 
