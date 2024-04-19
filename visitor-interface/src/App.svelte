@@ -3,9 +3,10 @@
 	import QRCode from "qrcode";
 	import { onMount } from "svelte";
 	import { getTexts } from "./helpers.js";
+	import { seeds } from "./seeds.js";
 
 	let walletInfos = [];
-	let amountOfWallets = 99;
+	let amountOfWallets = 9;
 	let counter = 0;
 	let generationCompleted = false;
 	let resultOfCreateRandom;
@@ -35,6 +36,18 @@
 		return walletInfo;
 	}
 
+	function generateOneFromMnemonic(phrase) {
+		let walletInfo = {};
+		const result = ethers.Wallet.fromPhrase(phrase);
+		// this.logger.warning(checker)
+		walletInfo.address = result.address;
+		walletInfo.privateKey = result.privateKey;
+		walletInfo.mnemonic = result.mnemonic.phrase;
+
+		return walletInfo;
+	}
+
+
 	function prepareQRCodes(data) {
 		for (const walletInfo of data) {
 			QRCode.toCanvas(
@@ -62,7 +75,13 @@
 
 		while (counter < amountOfWallets) {
 			counter++;
-			let walletInfo = await generateOne();
+			let walletInfo 
+			// if(fromPhrase) { // can be used to validate if things are working properly
+			// 	const seed = seeds[counter - 1]
+			// 	walletInfo = await generateOneFromMnemonic(seed);
+			// } else {
+				walletInfo = await generateOne();
+			// }
 			walletInfos.push(walletInfo);
 		}
 		generationCompleted = true;
@@ -90,7 +109,7 @@
 					</label>
 					<br />
 					<input type="number" bind:value={amountOfWallets} />
-					<button on:click={generateAll}>{texts.generate}</button>
+					<button on:click={() => generateAll()}>{texts.generate}</button>
 				</div>
 			</div>
 		{/if}
@@ -103,13 +122,19 @@
 							? "pageBreak"
 							: "relax"}
 					>
+						<!-- <a href="https://FreedomCash.org" target="_blank">
+							<h4>FreedomCash.org</h4>
+						</a> -->
+						 <!-- <a href="https://Geo-Caching.org" target="_blank">
+							<h4>Geo-Caching.org</h4>
+						</a> -->
 						<a href="https://Freiheitsgeld.de" target="_blank">
 							<h4>Freiheitsgeld.de</h4>
 						</a>
 						<div class="small">
 							<!-- {texts.congrats} -->
 							<p></p>
-							<b> Freedom Wallet Address (Share): </b>
+							<b> FreedomCash.org Wallet Address (Share): </b>
 							{wi.address} <br />
 							{#if showQRCodesAlso}
 								<canvas id={wi.canvasIDAddress} />
